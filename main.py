@@ -14,7 +14,17 @@ TITLE = 'Sounds'
 MT_FONT = 'DejaVuSans.ttf'
 FAVICON = 'favicon-starter-cropped.png'
 
-
+# Sound
+SOUND_EFFECTS = {
+    'beep' : 'beep.ogg',
+    'laser' : 'laser5.ogg',
+    'zap' : 'zap13.ogg'
+}
+SOUNDS = {
+    'beep' : pygame.mixer.Sound(SOUND_EFFECTS['beep']),
+    'laser' : pygame.mixer.Sound(SOUND_EFFECTS['laser']),
+    'zap' : pygame.mixer.Sound(SOUND_EFFECTS['zap'])
+}
 # Frame rate
 FPS = 60
 
@@ -51,17 +61,7 @@ def main():
     clock = pygame.time.Clock()
     running = True
     # On Startup
-    # Sound
-    SOUND_EFFECTS = {
-        'beep' : 'beep.ogg',
-        'laser' : 'laser5.ogg',
-        'zap' : 'zap13.ogg'
-    }
-    SOUNDS = {
-        'beep' : pygame.mixer.Sound(SOUND_EFFECTS['beep']),
-        'laser' : pygame.mixer.Sound(SOUND_EFFECTS['laser']),
-        'zap' : pygame.mixer.Sound(SOUND_EFFECTS['zap'])
-    }
+
     while running:
         running = handle_events()
         screen.fill(WHITE)
