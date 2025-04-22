@@ -11,7 +11,7 @@ WINDOW_HEIGHT = 600
 
 # Window Caption
 TITLE = 'Sounds'
-MT_FONT = 'DejaVuSans.ttf'
+MY_FONT = 'DejaVuSans.ttf'
 FAVICON = 'favicon-starter-cropped.png'
 
 # Sound
@@ -47,27 +47,47 @@ def init_game():
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     pygame.display.set_caption(TITLE)
     return screen
-def handle_events():
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            return False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                return False
-    return True
+
+def draw_text(screen, text, font, color, y):
+    text = font.render(text, True, color)
+    screen.blit(text, (90, y))
 def main():
     screen = init_game()
     pygame.mixer.init()
     clock = pygame.time.Clock()
     running = True
     # On Startup
-
+    text_font = pygame.font.Font(MY_FONT, 30)
+    font_color = GREEN
+    instructions = [
+        'Press 1 to Play a beep sound.',
+        'Press 2 to Play a laser sound.',
+        'Press 3 to Play a zap sound.',
+        'Press 4 to Change the text color.',
+        'Press 5 to Y.',
+        'Press 6 to Y.'
+    ]
+    base_y = 30
+    line_height = 20
+    backround_image = pygame.image.load("gtk5lvvg.png").convert()
+    pygame.set_icon('favacon-starter-cropped.png')
     while running:
-        running = handle_events()
-        screen.fill(WHITE)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            keys = pygame.ket.get_pressed()
+        screen.blit(backround_image, (0, 0))
         # While Running
-
-
+        for i in instructions:
+            draw_text(screen, instructions[i], text_font, font_color, base_y+i*line_height)
+        if keys[pygame.K_1]:
+            SOUNDS['beep'].play()
+        if keys[pygame.K_2]:
+            SOUNDS['laser'].play()
+        if keys[pygame.K_3]:
+            SOUNDS['zap'].play()
+        if keys[pygame.K_4]:
+            font_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
         # Limit clock to FPS & Update Screen
         pygame.display.flip()
         clock.tick(FPS)
