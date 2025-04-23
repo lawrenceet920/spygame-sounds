@@ -5,6 +5,9 @@
 import pygame
 import sys
 import random
+
+pygame.init()
+pygame.mixer.init()
 # Window dimentions
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
@@ -43,7 +46,7 @@ CYAN = (0, 255, 255)
 
 # Generic Functions
 def init_game():
-    pygame.init()
+
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     pygame.display.set_caption(TITLE)
     return screen
@@ -63,23 +66,24 @@ def main():
         'Press 1 to Play a beep sound.',
         'Press 2 to Play a laser sound.',
         'Press 3 to Play a zap sound.',
-        'Press 4 to Change the text color.',
-        'Press 5 to Y.',
-        'Press 6 to Y.'
+        'Press 4 to Change the text color.'
     ]
     base_y = 30
     line_height = 20
-    backround_image = pygame.image.load("gtk5lvvg.png").convert()
-    pygame.set_icon('favacon-starter-cropped.png')
+    backround_image = pygame.image.load("backroun.png").convert()
+    favicon = pygame.image.load('favicon-starter-cropped.png')
+    pygame.display.set_icon(favicon)
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            keys = pygame.ket.get_pressed()
+            keys = pygame.key.get_pressed()
         screen.blit(backround_image, (0, 0))
         # While Running
+        count = 0
         for i in instructions:
-            draw_text(screen, instructions[i], text_font, font_color, base_y+i*line_height)
+            count += 2
+            draw_text(screen, i, text_font, font_color, base_y+count*line_height)
         if keys[pygame.K_1]:
             SOUNDS['beep'].play()
         if keys[pygame.K_2]:
